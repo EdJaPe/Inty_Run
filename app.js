@@ -1,5 +1,6 @@
 let canvas = document.getElementById("intCanvas");
 let statusDisplay = document.getElementById('status');
+let enemies = []
 
 const ctx = canvas.getContext('2d');
 canvas.setAttribute('height', 600); 
@@ -37,6 +38,20 @@ function Runner(x, y, width, height, color) {
 let inty = new Runner(300, 200, 30, 30, 'red')
 let spanish = new Runner(50, 150, 60, 100, '#bada55')
 
+let makeBabyEnemies = () => {
+    enemies.push(new Runner(50, 150, 60, 100, 'blue'))
+    console.log(enemies)
+}
+let renderEnemies = () => {
+    if (enemies.length != 0){
+        enemies.forEach(enemy => {
+            enemy.render()
+            enemy.update()
+        })
+    }
+
+}
+
 
 let movement = 10
 
@@ -45,8 +60,9 @@ let gameLoop = () => {
    ctx.clearRect(0, 0, canvas.width, canvas.height)
     // newPosition()
     inty.render()
-    spanish.render()
-    spanish.update()
+    renderEnemies()
+    // spanish.render()
+    // spanish.update()
     detectHit()
 }
 let detectHit = () => {
@@ -81,7 +97,9 @@ let intysBtns = (e) => {
         break
         case 'd':
         inty.x += movement  
-
+        break
+        case 'j':
+        makeBabyEnemies()    
     }
 }
 
