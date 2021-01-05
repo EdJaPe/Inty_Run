@@ -4,6 +4,11 @@ let statusDisplay = document.getElementById('status');
 const ctx = canvas.getContext('2d');
 canvas.setAttribute('height', 600); 
 canvas.setAttribute('width', 1400);
+// let background = new Image();
+// background.src = "./images/andes.jpg";
+// background.onload = function (){
+//     ctx.drawImage(background, 0, 0);
+// }
 
 function Runner(x, y, width, height, color) {
     this.x = x
@@ -15,37 +20,33 @@ function Runner(x, y, width, height, color) {
     this.render = function() {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
-
+        
     }
+    this.update = function() {
+    if (this.x > 0 && this.x < 1400){
+        // this.x = canvas.width    
+        this.x += 2
+        }
+    }
+    // this.newPosition = function() {
+    //     this.x += x;
+    //     this.y += y;
+    // }
 }
 
 let inty = new Runner(300, 200, 30, 30, 'red')
 let spanish = new Runner(50, 150, 60, 100, '#bada55')
-    // this.update = function() {
-    // if (spanish.x > 0 && spanish.x < 1400){
-    //     this.x = game.width    
-    //     } 
-    //     this.x -= 2
-    // }
 
 
 let movement = 10
 
 let gameLoop = () => {
-    // clear canvas
+    
    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    //display game state on the DOM
-    //movementDisplay.innerText = `X: ${inty.x}\nY: ${inty.y}`
-    // if inty is alive
-    // if (inty.alive) {
-    // // if inty is alive 
-    //   inty.render()
-    //   // detect collision
-    //   detectHit()
-    // }
-    // render the spanish
+    // newPosition()
     inty.render()
     spanish.render()
+    spanish.update()
     detectHit()
 }
 let detectHit = () => {
