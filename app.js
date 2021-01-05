@@ -26,24 +26,22 @@ function Runner(x, y, width, height, color) {
     this.update = function() {
     if (this.x > 0 && this.x < 1400){
         // this.x = canvas.width    
-        this.x += 2
+        this.x -= 2
         }
     }
-    // this.newPosition = function() {
-    //     this.x += x;
-    //     this.y += y;
-    // }
+
 }
 
-let inty = new Runner(300, 200, 30, 30, 'red')
-let spanish = new Runner(50, 150, 60, 100, '#bada55')
+let inty = new Runner(10, 200, 30, 30, 'red')
+let spanish = new Runner(100, 150, 60, 100, '#bada55')
 
 let makeBabyEnemies = () => {
-    enemies.push(new Runner(50, 150, 60, 100, 'blue'))
-    console.log(enemies)
+    enemies.push(new Runner(Math.random()*canvas.width, Math.random()*canvas.height, 60, 100, 'blue'))
 }
 let renderEnemies = () => {
+
     if (enemies.length != 0){
+        //
         enemies.forEach(enemy => {
             enemy.render()
             enemy.update()
@@ -64,26 +62,44 @@ let gameLoop = () => {
     // spanish.render()
     // spanish.update()
     detectHit()
+    win ()
+    //call win function
 }
 let detectHit = () => {
-    if (
-      spanish.x + spanish.width >= inty.x &&
-      spanish.x <=  inty.x + inty.width &&
-      spanish.y <=  inty.y + inty.height &&
-      spanish.y + spanish.height >= inty.y 
-    ) {
-        endGame()
-    }
+    enemies.forEach(function(enemy){
+        if (
+            enemy.x + enemy.width > inty.x &&
+            enemy.x <  inty.x + inty.width &&
+            enemy.y <  inty.y + inty.height &&
+            enemy.y + enemy.height > inty.y 
+          ) {
+              endGame()
+          }
+    })
+    
 }
+// create function that states a win
+//
+let win = () => {
+    if (inty.x > canvas.width - 30) {
+        console.log("win")
+        statusDisplay.innerText = 'you reached the king, you win!'
+
+    }
+    //check if Inty crosses point in canvas
+    //check Inty's x axis position is greater than game.width-30
+    //if win then display win statement in 
+}
+
 
 let endGame = () => {
     console.log("End game")
     inty.alive = false
     statusDisplay.innerText = 'The Spanish soldiers killed you'
-    //setTime( () => {
         clearInterval(gameInterval)
-    //}, 200)
 }
+
+
 let intysBtns = (e) => {
     switch(e.key) {
       case 'w':
@@ -98,14 +114,15 @@ let intysBtns = (e) => {
         case 'd':
         inty.x += movement  
         break
-        case 'j':
-        makeBabyEnemies()    
+        // case 'j':
+        // makeBabyEnemies()    
     }
 }
 
 document.addEventListener('keydown', intysBtns)
 
 let gameInterval = setInterval(gameLoop, 100)
+let enemyAppear = setInterval(makeBabyEnemies, 2000)
 
 // document.querySelector('#btm-left').addEventListener('click', () => {
 //   clearInterval(gameInterval)  
@@ -119,3 +136,6 @@ let gameInterval = setInterval(gameLoop, 100)
 // give inty an image and soldier
 // render "you lose" banner after look into button type submit*
 // render  a reset button
+
+
+//use ramdom function to ramdomly choose new enemy positions
