@@ -17,6 +17,9 @@ const chasqui = new Image()
 chasqui.src = "./images/chasqui.png"
 const soldier = new Image()
 soldier.src = "./images/soldier.jpg"
+const kingPic = new Image()
+kingPic.src = "./images/king.png"
+console.log(soldier)
 
 
 function Runner(x, y, width, height, color, img) {
@@ -45,8 +48,9 @@ function Runner(x, y, width, height, color, img) {
 }
 
 let inty = new Runner(10, 200, 30, 30, 'red', chasqui)
-
-
+let king = new Runner(canvas.width-30 , canvas.height/2, 30, 30, 'green', kingPic)
+console.log(inty)
+console.log(king)
 let makeBabyEnemies = () => {
     enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 100, 'blue', soldier))
 }
@@ -75,6 +79,7 @@ let gameLoop = () => {
    ctx.clearRect(0, 0, canvas.width, canvas.height)
     if (gameOver === false) {
         inty.draw()
+        king.render()
         renderEnemies()
         
         detectHit()
@@ -112,7 +117,12 @@ let detectHit = () => {
 //     }
 // }
 let win = () => {
-    if (inty.x > canvas.width - 30) {
+    if (
+            king.x + king.width > inty.x &&
+            king.x <  inty.x + inty.width &&
+            king.y <  inty.y + inty.height &&
+            king.y + king.height > inty.y
+        ) {
         
         statusDisplay.innerText = 'you reached the king, you win!'
         clearInterval(gameInterval)

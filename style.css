@@ -39,6 +39,9 @@ canvas{
 #top-right{
     text-align: right;
 }
+button{
+    text-align:center;
+}
 /* main{
     grid-row: 2;
     grid-column:1/4;

@@ -23,12 +23,13 @@ A chance to rewrite history!. You are Inty an Incan messenger a "Chasqui". Your 
 * Render finish line scene Meeting with King.
 * Render background movement of Andes Mountains
 * Render spanish soldiers chasing the hero.[]
-* Have
 * render moving background of the Andean Mountains
 
+* render King as destination
 * Render Inty 
 * Render oncoming enemies
 * State win scenario
+* State losing
 
 
 
