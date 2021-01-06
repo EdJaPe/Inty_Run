@@ -1,10 +1,13 @@
 let canvas = document.getElementById("intCanvas");
 let statusDisplay = document.getElementById('status');
 let enemies = []
+let gameOver = true
+let startBtn = document.getElementById("start");
+
 
 const ctx = canvas.getContext('2d');
 canvas.setAttribute('height', 600); 
-canvas.setAttribute('width', 1400);
+canvas.setAttribute('width', 900);
 // let background = new Image();
 // background.src = "./images/andes.jpg";
 // background.onload = function (){
@@ -24,10 +27,10 @@ function Runner(x, y, width, height, color) {
         
     }
     this.update = function() {
-    if (this.x > 0 && this.x < 1400){
-        // this.x = canvas.width    
-        this.x -= 2
-        }
+        if (this.x > -60 && this.x <= canvas.width + 60){
+            // this.x = canvas.width    
+            this.x -= 10
+            }
     }
 
 }
@@ -36,7 +39,7 @@ let inty = new Runner(10, 200, 30, 30, 'red')
 let spanish = new Runner(100, 150, 60, 100, '#bada55')
 
 let makeBabyEnemies = () => {
-    enemies.push(new Runner(Math.random()*canvas.width, Math.random()*canvas.height, 60, 100, 'blue'))
+    enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 100, 'blue'))
 }
 let renderEnemies = () => {
 
@@ -45,9 +48,14 @@ let renderEnemies = () => {
         enemies.forEach(enemy => {
             enemy.render()
             enemy.update()
+            if (enemy.x < 0 - enemy.width){
+                enemies.shift()
+            }
         })
     }
-
+    // if (enemies.length && enemies[0].x < 0){
+    // //     enemies.shift()
+    // }  
 }
 
 
@@ -56,15 +64,24 @@ let movement = 10
 let gameLoop = () => {
     
    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // newPosition()
-    inty.render()
-    renderEnemies()
-    // spanish.render()
-    // spanish.update()
-    detectHit()
-    win ()
+    if (gameOver === false) {
+        inty.render()
+        renderEnemies()
+        
+        detectHit()
+        win ()
+
+    }
     //call win function
 }
+let startGame = (event) => {
+    event.preventDefault()
+    gameOver = false
+    console.log("Game started")
+}
+
+
+
 let detectHit = () => {
     enemies.forEach(function(enemy){
         if (
@@ -80,11 +97,16 @@ let detectHit = () => {
 }
 // create function that states a win
 //
+// let spnshGone =() => {
+//     if (enemy.x === 0){
+
+//     }
+// }
 let win = () => {
     if (inty.x > canvas.width - 30) {
-        console.log("win")
+        
         statusDisplay.innerText = 'you reached the king, you win!'
-
+        clearInterval(gameInterval)
     }
     //check if Inty crosses point in canvas
     //check Inty's x axis position is greater than game.width-30
@@ -113,12 +135,14 @@ let intysBtns = (e) => {
         break
         case 'd':
         inty.x += movement  
-        break
+        
         // case 'j':
         // makeBabyEnemies()    
     }
 }
-
+startBtn.addEventListener("click", (event) => {
+    startGame (event)
+})
 document.addEventListener('keydown', intysBtns)
 
 let gameInterval = setInterval(gameLoop, 100)
@@ -138,4 +162,6 @@ let enemyAppear = setInterval(makeBabyEnemies, 2000)
 // render  a reset button
 
 
-//use ramdom function to ramdomly choose new enemy positions
+//use random function to randomly choose new enemy positions
+//extend canvas 
+//make soldiers that reached other side disappear
