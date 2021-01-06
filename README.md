@@ -21,11 +21,14 @@ A chance to rewrite history!. You are Inty an Incan messenger a "Chasqui". Your 
 * Start menu with gold relict animation.
 * Render starting point health info at the bottom of the screen.
 * Render finish line scene Meeting with King.
-* Add obstacles and background.
-* Render Coins collected
 * Render background movement of Andes Mountains
-* Render spanish soldiers chasing the hero.
+* Render spanish soldiers chasing the hero.[]
+* Have
 * render moving background of the Andean Mountains
+
+* Render Inty 
+* Render oncoming enemies
+* State win scenario
 
 
 

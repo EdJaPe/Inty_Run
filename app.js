@@ -13,13 +13,19 @@ canvas.setAttribute('width', 900);
 // background.onload = function (){
 //     ctx.drawImage(background, 0, 0);
 // }
+const chasqui = new Image()
+chasqui.src = "./images/chasqui.png"
+const soldier = new Image()
+soldier.src = "./images/soldier.jpg"
 
-function Runner(x, y, width, height, color) {
+
+function Runner(x, y, width, height, color, img) {
     this.x = x
     this.y = y
     this.color = color
     this.width = width
     this.height = height
+    this.img = img
     this.alive = true
     this.render = function() {
         ctx.fillStyle = this.color
@@ -32,21 +38,24 @@ function Runner(x, y, width, height, color) {
             this.x -= 10
             }
     }
+    this.draw = function() {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+    }
 
 }
 
-let inty = new Runner(10, 200, 30, 30, 'red')
-let spanish = new Runner(100, 150, 60, 100, '#bada55')
+let inty = new Runner(10, 200, 30, 30, 'red', chasqui)
+
 
 let makeBabyEnemies = () => {
-    enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 100, 'blue'))
+    enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 100, 'blue', soldier))
 }
 let renderEnemies = () => {
 
     if (enemies.length != 0){
         //
         enemies.forEach(enemy => {
-            enemy.render()
+            enemy.draw()
             enemy.update()
             if (enemy.x < 0 - enemy.width){
                 enemies.shift()
@@ -65,7 +74,7 @@ let gameLoop = () => {
     
    ctx.clearRect(0, 0, canvas.width, canvas.height)
     if (gameOver === false) {
-        inty.render()
+        inty.draw()
         renderEnemies()
         
         detectHit()
