@@ -5,6 +5,25 @@ let gameOver = true
 let startBtn = document.getElementById("start");
 
 
+
+// canvas.addEventListener("click", (e) => {
+//     console.log("I'm working")
+//     if (e.offsetX >0 && e.offsetX < canvas.width) {
+//         startGame ()
+//         // menu.show() === false
+//     }
+//     // use if to check the location of x.y positions
+//     // invoke start game
+//     // set menu.show to false
+// })
+
+
+
+//create Story line
+// document.addEventListener('DOMContentLoaded', function() {
+    
+// })
+
 const ctx = canvas.getContext('2d');
 canvas.setAttribute('height', 600); 
 canvas.setAttribute('width', 900);
@@ -14,12 +33,38 @@ canvas.setAttribute('width', 900);
 //     ctx.drawImage(background, 0, 0);
 // }
 const chasqui = new Image()
-chasqui.src = "./images/chasqui.png"
+chasqui.src = "./images/chasqui.png";
 const soldier = new Image()
-soldier.src = "./images/soldier.jpg"
+soldier.src = "./images/soldier.jpg";
 const kingPic = new Image()
-kingPic.src = "./images/king.png"
-console.log(soldier)
+kingPic.src = "./images/king.png";
+
+// function storyBox(x, y, width, height, color) {
+    
+// }
+function Menu (x, y, width, height, color, text) {
+    this.x = x
+    this.y = y
+    this.color = color
+    this.width = width
+    this.height = height
+    this.show = true
+    this.text = text
+    this.update = function() {
+        if (this.x > -60 && this.x <= canvas.width + 60){
+            // this.x = canvas.width    
+            this.x -= 10
+            }
+    }
+    this.draw = function() {
+        ctx.fillStyle = this.color
+        ctx.font = "60px helvetica"
+        ctx.fillText("Game Intro", this.x, this.y)
+        ctx.font = "25px helvetica"
+        ctx.fillText("In a future  far away", this.x, this.y+25)
+        ctx.fillText("Game Intro", this.x, this.y+50)
+    }
+}
 
 
 function Runner(x, y, width, height, color, img) {
@@ -33,6 +78,7 @@ function Runner(x, y, width, height, color, img) {
     this.render = function() {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
+
         
     }
     this.update = function() {
@@ -44,53 +90,57 @@ function Runner(x, y, width, height, color, img) {
     this.draw = function() {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
-
 }
+
+
+let menu = new Menu(canvas.width/2-75, canvas.height/2-40, null, null, 'white', null)
+
 
 let inty = new Runner(10, 200, 30, 30, 'red', chasqui)
-let king = new Runner(canvas.width-30 , canvas.height/2, 30, 30, 'green', kingPic)
-console.log(inty)
-console.log(king)
-let makeBabyEnemies = () => {
-    enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 100, 'blue', soldier))
-}
-let renderEnemies = () => {
+let king = new Runner(canvas.width-30 , canvas.height/2, 60, 60, 'green', kingPic)
 
+let makeBabyEnemies = () => {
+    enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 60, 'blue', soldier))
+}
+//------
+let renderEnemies = () => {
     if (enemies.length != 0){
-        //
-        enemies.forEach(enemy => {
+            enemies.forEach(enemy => {
             enemy.draw()
             enemy.update()
             if (enemy.x < 0 - enemy.width){
                 enemies.shift()
             }
         })
-    }
-    // if (enemies.length && enemies[0].x < 0){
-    // //     enemies.shift()
-    // }  
+    } 
 }
 
 
 let movement = 10
 
 let gameLoop = () => {
-    
    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    if (gameOver === true) {
+        menu.draw()
+    }
+   
     if (gameOver === false) {
         inty.draw()
-        king.render()
+        king.draw()
+        // if (enemies.length < 10) {
+        //     makeBabyEnemies()
+        // }
         renderEnemies()
-        
         detectHit()
         win ()
-
     }
-    //call win function
+
 }
 let startGame = (event) => {
-    event.preventDefault()
     gameOver = false
+    gameLoop()
+    // renderEnemies()
+    event.preventDefault()
     console.log("Game started")
 }
 
@@ -99,10 +149,10 @@ let startGame = (event) => {
 let detectHit = () => {
     enemies.forEach(function(enemy){
         if (
-            enemy.x + enemy.width > inty.x &&
-            enemy.x <  inty.x + inty.width &&
-            enemy.y <  inty.y + inty.height &&
-            enemy.y + enemy.height > inty.y 
+            enemy.x + enemy.width >= inty.x &&
+            enemy.x <=  inty.x + inty.width &&
+            enemy.y <=  inty.y + inty.height &&
+            enemy.y + enemy.height >= inty.y 
           ) {
               endGame()
           }
@@ -118,10 +168,10 @@ let detectHit = () => {
 // }
 let win = () => {
     if (
-            king.x + king.width > inty.x &&
-            king.x <  inty.x + inty.width &&
-            king.y <  inty.y + inty.height &&
-            king.y + king.height > inty.y
+            king.x + king.width >= inty.x &&
+            king.x <=  inty.x + inty.width &&
+            king.y <=  inty.y + inty.height &&
+            king.y + king.height >= inty.y
         ) {
         
         statusDisplay.innerText = 'you reached the king, you win!'
@@ -153,10 +203,7 @@ let intysBtns = (e) => {
         inty.y += movement
         break
         case 'd':
-        inty.x += movement  
-        
-        // case 'j':
-        // makeBabyEnemies()    
+        inty.x += movement    
     }
 }
 startBtn.addEventListener("click", (event) => {
@@ -165,7 +212,10 @@ startBtn.addEventListener("click", (event) => {
 document.addEventListener('keydown', intysBtns)
 
 let gameInterval = setInterval(gameLoop, 100)
-let enemyAppear = setInterval(makeBabyEnemies, 2000)
+
+if (gameOver === true){
+    let enemyAppear = setInterval(makeBabyEnemies, 2000)
+}
 
 // document.querySelector('#btm-left').addEventListener('click', () => {
 //   clearInterval(gameInterval)  

@@ -19,9 +19,9 @@ A chance to rewrite history!. You are Inty an Incan messenger a "Chasqui". Your 
 # MVP goals*
 
 * Start menu with gold relict animation.
-* Render starting point health info at the bottom of the screen.
+
 * Render finish line scene Meeting with King.
-* Render background movement of Andes Mountains
+
 * Render spanish soldiers chasing the hero.[]
 * render moving background of the Andean Mountains
 
@@ -38,4 +38,4 @@ A chance to rewrite history!. You are Inty an Incan messenger a "Chasqui". Your 
 * add flying condors in background.
 * add upgradable running sandals that changes runners shoes.
 * Render picture of the new future.
-
+* Render background movement of Andes Mountains

@@ -39,9 +39,13 @@ canvas{
 #top-right{
     text-align: right;
 }
-button{
-    text-align:center;
+form{
+    text-align: center;
 }
+button{
+
+}
+
 /* main{
     grid-row: 2;
     grid-column:1/4;
