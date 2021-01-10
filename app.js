@@ -3,6 +3,7 @@ let statusDisplay = document.getElementById('status');
 let enemies = []
 let gameOver = true
 let startBtn = document.getElementById("start");
+let restartBtn = document.getElementById("restartBtn")
 
 
 
@@ -136,6 +137,13 @@ let gameLoop = () => {
     }
 
 }
+
+let restart = (event) => {
+    clearInterval(gameInterval)
+    clearInterval(enemyAppear)
+}
+
+
 let startGame = (event) => {
     gameOver = false
     gameLoop()
@@ -209,6 +217,11 @@ let intysBtns = (e) => {
 startBtn.addEventListener("click", (event) => {
     startGame (event)
 })
+
+restartBtn.addEventListener("click", (e) => {
+    restart(e)
+})
+
 document.addEventListener('keydown', intysBtns)
 
 let gameInterval = setInterval(gameLoop, 100)
