@@ -62,8 +62,11 @@ function Menu (x, y, width, height, color, text) {
         ctx.font = "60px helvetica"
         ctx.fillText("Game Intro", this.x, this.y)
         ctx.font = "25px helvetica"
-        ctx.fillText("In a future  far away", this.x, this.y+25)
-        ctx.fillText("Game Intro", this.x, this.y+50)
+        ctx.fillText("In a future  far away, you have been given the chance to rewrite history.", this.x-275, this.y+25)
+        ctx.fillText("You will back to the 1500's as  Inty. Inty is a Chasqui an Incan messenger. ", this.x-275, this.y+50)
+        ctx.fillText("Your Goal, if you choose to accept it, is to reach the king. Deliver the", this.x-275, this.y+75)
+        ctx.fillText("message that warns him about the spanish ships. ", this.x-220, this.y+100)
+        ctx.fillText("Click START when you are ready. Hurry! Spanish soldiers will try to stop you!", this.x-300, this.y+125)
     }
 }
 
@@ -94,11 +97,11 @@ function Runner(x, y, width, height, color, img) {
 }
 
 
-let menu = new Menu(canvas.width/2-75, canvas.height/2-40, null, null, 'white', null)
+let menu = new Menu(canvas.width/2-120, canvas.height/2-100, null, null, 'green', null)
 
 
 let inty = new Runner(10, 200, 30, 30, 'red', chasqui)
-let king = new Runner(canvas.width-30 , canvas.height/2, 60, 60, 'green', kingPic)
+let king = new Runner(canvas.width-60 , canvas.height/2, 60, 60, 'green', kingPic)
 
 let makeBabyEnemies = () => {
     enemies.push(new Runner(canvas.width + 60, Math.random()*canvas.height, 60, 60, 'blue', soldier))
@@ -126,6 +129,8 @@ let gameLoop = () => {
     }
    
     if (gameOver === false) {
+        
+
         inty.draw()
         king.draw()
         // if (enemies.length < 10) {
@@ -227,7 +232,8 @@ document.addEventListener('keydown', intysBtns)
 let gameInterval = setInterval(gameLoop, 100)
 
 if (gameOver === true){
-    let enemyAppear = setInterval(makeBabyEnemies, 2000)
+    let enemyAppear = setInterval(makeBabyEnemies, 1000)
+    
 }
 
 // document.querySelector('#btm-left').addEventListener('click', () => {
@@ -247,3 +253,4 @@ if (gameOver === true){
 //use random function to randomly choose new enemy positions
 //extend canvas 
 //make soldiers that reached other side disappear
+
