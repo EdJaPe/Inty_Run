@@ -65,7 +65,7 @@ function Menu (x, y, width, height, color, text) {
         ctx.fillText("In a future  far away, you have been given the chance to rewrite history.", this.x-275, this.y+25)
         ctx.fillText("You will go back to the 1500's as  Inty. Inty is a Chasqui an Incan messenger. ", this.x-290, this.y+50)
         ctx.fillText("Your Goal, if you choose to accept it, is to reach the king. Deliver the", this.x-275, this.y+75)
-        ctx.fillText("message that warns him about the spanish ships and creat a new timeline. ", this.x-220, this.y+100)
+        ctx.fillText("message that warns him about the spanish ships and create a new timeline. ", this.x-220, this.y+100)
         ctx.fillText("Click START when you are ready. Hurry! Spanish soldiers will try to stop you!", this.x-300, this.y+125)
     }
 }
